@@ -1,5 +1,7 @@
 package com.example.quizapp.presentation.signIn.screen
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,9 +15,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,13 +27,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quizapp.R
+import com.example.quizapp.presentation.signIn.SignInState
 import com.example.quizapp.ui.theme.BackgroundColor
 import com.example.quizapp.ui.theme.PoppinsFontFamily
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(
+    modifier: Modifier = Modifier,
+    onSignInClick: () -> Unit,
+    onSignInSuccess: () -> Unit,
+    state: SignInState
+) {
+    val context = LocalContext.current
+    Effects(state, context, onSignInSuccess)
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(BackgroundColor),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +68,7 @@ fun SignInScreen() {
         Spacer(modifier = Modifier.weight(1f))
 
         OutlinedButton(
-            onClick = { /*TODO*/ },
+            onClick = { onSignInClick() },
             border = BorderStroke(
                 width = 1.dp,
                 color = Color.Black
@@ -88,8 +101,31 @@ fun SignInScreen() {
     }
 }
 
+@Composable
+private fun Effects(
+    state: SignInState,
+    context: Context,
+    onSignInSuccess: () -> Unit
+) {
+    LaunchedEffect(key1 = state.signInError) {
+        state.signInError?.let { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    LaunchedEffect(key1 = state.isSignInSuccessful) {
+        if (state.isSignInSuccessful) {
+            onSignInSuccess()
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen()
+    SignInScreen(
+        onSignInClick = {},
+        onSignInSuccess = {},
+        state = SignInState()
+    )
 }
