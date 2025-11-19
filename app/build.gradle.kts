@@ -90,7 +90,6 @@ dependencies {
 
     // androidx.credentials
     implementation(libs.androidx.credentials)
-// Google ile Giriş gibi federated servisleri kullanmak için
     implementation(libs.androidx.credentials.play.services.auth)
 
 
