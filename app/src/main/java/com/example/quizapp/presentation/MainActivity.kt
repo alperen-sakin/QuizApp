@@ -8,12 +8,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -72,34 +68,30 @@ class MainActivity : ComponentActivity() {
             }
 
             QuizAppTheme {
-                Scaffold {
-                    Box(modifier = Modifier.padding(it)) {
-                        val isSignedIn = googleAuthUiClient.getSignedInUser() != null
-                        val startDestination = if (isSignedIn) "home" else "login"
+                val isSignedIn = googleAuthUiClient.getSignedInUser() != null
+                val startDestination = if (isSignedIn) "home" else "login"
 
-                        NavigationHost(
-                            navController = navController,
-                            startDestination = startDestination,
-                            onSignInClick = {
-                                lifecycleScope.launch {
-                                    try {
-                                        val response = googleAuthUiClient.signIn()
-                                        if (response != null) {
-                                            viewModel.processSignInResponse(response)
-                                        }
-                                    } catch (e: NoCredentialException) {
-                                        Toast.makeText(
-                                            context,
-                                            "Giriş yapılacak Google hesabı bulunamadı.",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        e.printStackTrace()
-                                    }
+                NavigationHost(
+                    navController = navController,
+                    startDestination = startDestination,
+                    onSignInClick = {
+                        lifecycleScope.launch {
+                            try {
+                                val response = googleAuthUiClient.signIn()
+                                if (response != null) {
+                                    viewModel.processSignInResponse(response)
                                 }
+                            } catch (e: NoCredentialException) {
+                                Toast.makeText(
+                                    context,
+                                    "Giriş yapılacak Google hesabı bulunamadı.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                e.printStackTrace()
                             }
-                        )
+                        }
                     }
-                }
+                )
             }
         }
     }
