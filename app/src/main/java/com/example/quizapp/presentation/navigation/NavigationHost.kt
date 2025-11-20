@@ -7,7 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.quizapp.presentation.homeScreen.HomeScreen
+import com.example.quizapp.presentation.homeScreen.HomeRoute
 import com.example.quizapp.presentation.signIn.SignInViewModel
 import com.example.quizapp.presentation.signIn.screen.SignInScreen
 
@@ -22,7 +22,7 @@ fun NavigationHost(
         startDestination = startDestination
     ) {
         composable("home") {
-            HomeScreen(navController = navController)
+            HomeRoute(navController = navController)
         }
         composable("login") {
             val viewModel: SignInViewModel = hiltViewModel()

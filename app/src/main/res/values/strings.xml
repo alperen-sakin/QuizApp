@@ -3,4 +3,5 @@
     <string name="web_client_id">996145256909-mam3sm01i60g6dj0ok9a23agdk0vbbfv.apps.googleusercontent.com</string>
     <string name="sign_in_to_start_playing">Sign in to start playing</string>
     <string name="powered_by_firebase_auth">Powered by Firebase Auth</string>
+    <string name="quizzly">Quizzly</string>
 </resources>

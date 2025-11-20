@@ -10,6 +10,13 @@ import com.example.quizapp.R
 
 // Set of Material typography styles to start with
 
+val MontserratFamily = FontFamily(
+    Font(R.font.montserrat_regular, FontWeight.Normal),
+    Font(R.font.montserrat_medium, FontWeight.Medium),
+    Font(R.font.montserrat_bold, FontWeight.Bold),
+    Font(R.font.montserrat_semibold, FontWeight.SemiBold)
+)
+
 val PoppinsFontFamily = FontFamily(
     Font(R.font.poppins, FontWeight.Normal),
     Font(R.font.poppins_medium, FontWeight.Medium),
@@ -17,27 +24,27 @@ val PoppinsFontFamily = FontFamily(
     Font(R.font.poppins_bold, FontWeight.Bold),
 )
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = PoppinsFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+    headlineLarge = TextStyle(
+        fontFamily = MontserratFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+    // TopAppBar gibi yerlerdeki başlıklar
+    titleLarge = TextStyle(
+        fontFamily = MontserratFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 22.sp
+    ),
+    // Normal gövde metni (sorular, açıklamalar)
+    bodyLarge = TextStyle(
+        fontFamily = MontserratFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    // Butonlar ve diğer küçük metinler
+    labelLarge = TextStyle(
+        fontFamily = MontserratFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp
     )
-     */
 )
