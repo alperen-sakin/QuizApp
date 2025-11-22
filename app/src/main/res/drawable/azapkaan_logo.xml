@@ -5,9 +5,10 @@
     android:viewportHeight="500">
 
     <group
-        android:name="animationGroup"
         android:pivotX="250"
-        android:pivotY="250">
+        android:pivotY="250"
+        android:scaleX="0.5"
+        android:scaleY="0.5">
 
         <path
             android:pathData="M102.07,438.31L70.64,500H0L58.32,382.37L102.07,438.31Z"
