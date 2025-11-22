@@ -30,3 +30,5 @@ val BronzeColor = Color(0xffCD7F32)
 
 val SelectedContainerColor = Color(0xffABD1C6)
 val SelectedColor = Color(0xff004643)
+
+val gradiant = listOf(Color.Black, IndianREd, Color.Black)
