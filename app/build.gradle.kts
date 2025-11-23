@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
 
     implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
 
 
 
