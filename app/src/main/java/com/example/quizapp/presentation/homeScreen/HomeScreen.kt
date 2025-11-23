@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.domain.model.Category
 import com.example.quizapp.presentation.common.HALF_SIZE
 import com.example.quizapp.presentation.homeScreen.components.ContentSection
 import com.example.quizapp.presentation.homeScreen.components.HomeHeader
@@ -24,7 +27,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     userData: UserData?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    categories: List<Category>
 ) {
     Scaffold(
         topBar = {
@@ -44,7 +48,9 @@ fun HomeScreen(
                 profilePicture = userData?.profilePictureUrl
             )
 
-            ContentSection()
+            ContentSection(
+                categories = categories
+            )
         }
     }
 }
@@ -57,7 +63,10 @@ fun HomeRoute(
     val userData = viewModel.getSignedInUser()
     val coroutineScope = rememberCoroutineScope()
 
+    val categories by viewModel.categories.collectAsStateWithLifecycle()
+
     HomeScreen(
+        categories = categories,
         userData = userData,
         onSignOut = {
             coroutineScope.launch {
@@ -84,7 +93,8 @@ fun HomeScreenPreview() {
                 username = "Test User",
                 profilePictureUrl = null
             ),
-            onSignOut = {}
+            onSignOut = {},
+            categories = emptyList()
         )
     }
 }

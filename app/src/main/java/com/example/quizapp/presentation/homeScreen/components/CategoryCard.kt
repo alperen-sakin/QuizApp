@@ -10,28 +10,36 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.ImageLoader
+import coil.compose.AsyncImage
 import com.example.quizapp.R
 import com.example.quizapp.domain.model.Category
 import com.example.quizapp.ui.theme.MontserratFamily
+import dagger.hilt.android.EntryPointAccessors
 
 @Composable
 fun CategoryCard(
     category: Category,
     onCategoryClick: (Category) -> Unit
 ) {
+    val imageLoader = EntryPointAccessors.fromApplication(
+        LocalContext.current,
+        CoilEntryPoint::class.java
+    ).imageLoader()
+
     Card(
         modifier = Modifier
             .aspectRatio(1f)
@@ -52,11 +60,14 @@ fun CategoryCard(
                     .weight(2f),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    painter = painterResource(id = category.icon),
-                    tint = Color.White,
+                AsyncImage(
+                    model = category.icon,
+                    imageLoader = imageLoader,
                     contentDescription = category.name,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp),
+                    placeholder = painterResource(id = R.drawable.category_general_icon),
+                    error = painterResource(id = R.drawable.category_general_icon),
+                    colorFilter = ColorFilter.tint(Color.White)
                 )
             }
 
@@ -83,15 +94,8 @@ fun CategoryCard(
     }
 }
 
-@Preview
-@Composable
-fun CategoryCardPreview() {
-    CategoryCard(
-        category = Category(
-            name = "General",
-            color = Color.Blue,
-            icon = R.drawable.category_general_icon
-        ),
-        onCategoryClick = {}
-    )
+@dagger.hilt.EntryPoint
+@dagger.hilt.InstallIn(dagger.hilt.components.SingletonComponent::class)
+interface CoilEntryPoint {
+    fun imageLoader(): ImageLoader
 }
