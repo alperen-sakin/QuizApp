@@ -8,6 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.quizapp.presentation.homeScreen.HomeRoute
+import com.example.quizapp.presentation.quizScreen.QuizScreen
+import com.example.quizapp.presentation.quizScreen.QuizViewModel
 import com.example.quizapp.presentation.signIn.SignInViewModel
 import com.example.quizapp.presentation.signIn.screen.SignInScreen
 
@@ -39,6 +41,13 @@ fun NavigationHost(
                     }
                 }
             )
+        }
+
+        composable(route = "quiz/{categoryId}") { backStackEntry ->
+
+            val viewModel: QuizViewModel = hiltViewModel()
+
+            QuizScreen(navController = navController,)
         }
     }
 }

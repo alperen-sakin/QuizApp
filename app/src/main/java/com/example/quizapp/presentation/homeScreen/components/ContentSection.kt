@@ -1,6 +1,5 @@
 package com.example.quizapp.presentation.homeScreen.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +30,8 @@ import com.example.quizapp.ui.theme.gradiant
 
 @Composable
 fun ContentSection(
-    categories: List<Category>
+    categories: List<Category>,
+    onCategoryClick: (String) -> Unit
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val titles = listOf("Categories", "Leaderboard")
@@ -74,7 +74,8 @@ fun ContentSection(
 
         if (selectedTabIndex == 0) {
             CategoriesScreen(
-                categories = categories
+                categories = categories,
+                onCategoryClick = onCategoryClick
             )
         } else {
             Text(
@@ -88,7 +89,8 @@ fun ContentSection(
 
 @Composable
 fun CategoriesScreen(
-    categories: List<Category>
+    categories: List<Category>,
+    onCategoryClick: (String) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 150.dp),
@@ -103,9 +105,8 @@ fun CategoriesScreen(
         ) { category ->
             CategoryCard(
                 category = category,
-                onCategoryClick = {
-                    Log.d("CategoryCard", "Category clicked: ${category.name}")
-                }
+                onCategoryClick = onCategoryClick
+
             )
         }
     }

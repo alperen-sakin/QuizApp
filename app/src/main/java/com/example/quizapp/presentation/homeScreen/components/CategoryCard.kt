@@ -33,7 +33,7 @@ import dagger.hilt.android.EntryPointAccessors
 @Composable
 fun CategoryCard(
     category: Category,
-    onCategoryClick: (Category) -> Unit
+    onCategoryClick: (String) -> Unit
 ) {
     val imageLoader = EntryPointAccessors.fromApplication(
         LocalContext.current,
@@ -47,7 +47,7 @@ fun CategoryCard(
         colors = CardDefaults.cardColors(
             containerColor = category.color
         ),
-        onClick = { onCategoryClick(category) }
+        onClick = { onCategoryClick(category.id) }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

@@ -28,7 +28,8 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
-    categories: List<Category>
+    categories: List<Category>,
+    onCategoryClick: (String) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -49,7 +50,8 @@ fun HomeScreen(
             )
 
             ContentSection(
-                categories = categories
+                categories = categories,
+                onCategoryClick = onCategoryClick
             )
         }
     }
@@ -77,6 +79,9 @@ fun HomeRoute(
                     }
                 }
             }
+        },
+        onCategoryClick = { categoryId ->
+            navController.navigate("quiz/$categoryId")
         }
     )
 }
@@ -94,7 +99,10 @@ fun HomeScreenPreview() {
                 profilePictureUrl = null
             ),
             onSignOut = {},
-            categories = emptyList()
+            categories = emptyList(),
+            onCategoryClick = { categoryId ->
+                navController.navigate("quiz/$categoryId")
+            }
         )
     }
 }
