@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.add
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import com.example.quizapp.presentation.signIn.GoogleAuthUiClient
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,12 @@ object AppModule {
         @ApplicationContext context: Context,
     ): GoogleAuthUiClient {
         return GoogleAuthUiClient(context = context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 
     @Provides
